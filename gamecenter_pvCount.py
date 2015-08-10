@@ -5,7 +5,7 @@ import fileinput
 output=open(r'C:/Users/Administrator/Desktop/2.3output.txt','a')
 sys.stdout=output
 #读取日志
-#f = open('E:/g2.androidgame-store.com-20150719.log.part9','r')
+
 yxqd=[]
 syd=[]
 lbtd=[]
@@ -13,8 +13,6 @@ lbd=[]
 sd=[]
 dgd=[]
 
-#lines = f.readlines()
-#读取大日志文件>1.4G
 lines=fileinput.input(r'C:\Users\Administrator\Desktop\test.txt')
 
 #/newdiguaserver/user/activity/follow
@@ -57,8 +55,6 @@ for line in lines:
     if search6:
         dg=search6.group(0)
         dgd.append(dg)
-#f.close()
-#print ("空url: %d" % cont)
 print ("游戏圈总访问pv: %d" % len(yxqd))
 print ("首页总访问pv: %d" % len(syd))
 print ("轮播图总访问pv: %d" % len(lbtd))
