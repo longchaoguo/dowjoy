@@ -4,7 +4,7 @@ import sys
 import fileinput
 output=open(r'C:/Users/Administrator/Desktop/2.3output.txt','a')
 sys.stdout=output
-#è¯»å–æ—¥å¿—
+#¶ÁÈ¡ÈÕÖ¾
 #f = open('E:/g2.androidgame-store.com-20150719.log.part9','r')
 yxqd=[]
 syd=[]
@@ -14,7 +14,7 @@ sd=[]
 dgd=[]
 
 #lines = f.readlines()
-#è¯»å–å¤§æ—¥å¿—æ–‡ä»¶>1.4G
+#¶ÁÈ¡´óÈÕÖ¾ÎÄ¼ş>1.4G
 lines=fileinput.input(r'C:\Users\Administrator\Desktop\test.txt')
 
 #/newdiguaserver/user/activity/follow
@@ -58,20 +58,13 @@ for line in lines:
         dg=search6.group(0)
         dgd.append(dg)
 #f.close()
-#print ("ç©ºurl: %d" % cont)
-print ("æ¸¸æˆåœˆæ€»è®¿é—®pv: %d" % len(yxqd))
-print ("é¦–é¡µæ€»è®¿é—®pv: %d" % len(syd))
-print ("è½®æ’­å›¾æ€»è®¿é—®pv: %d" % len(lbtd))
-print ("æ¸¸æˆåˆ—è¡¨æ€»è®¿é—®pv: %d" % len(lbd))
-print ("æœç´¢æ€»è®¿é—®pv: %d" % len(sd))
-print ("å•ä¸ªæ¸¸æˆæ€»è®¿é—®pv: %d" % len(dgd))
-'''i=0
-print("ç¼–ç 1","ç¼–ç 2","url")
-while (i<len(aaa)):
-  print(aaa[i])
-  i+=1'''
-#for line in lines:
-#print(arr)
-#print(ipaddress)
+#print ("¿Õurl: %d" % cont)
+print ("ÓÎÏ·È¦×Ü·ÃÎÊpv: %d" % len(yxqd))
+print ("Ê×Ò³×Ü·ÃÎÊpv: %d" % len(syd))
+print ("ÂÖ²¥Í¼×Ü·ÃÎÊpv: %d" % len(lbtd))
+print ("ÓÎÏ·ÁĞ±í×Ü·ÃÎÊpv: %d" % len(lbd))
+print ("ËÑË÷×Ü·ÃÎÊpv: %d" % len(sd))
+print ("µ¥¸öÓÎÏ·×Ü·ÃÎÊpv: %d" % len(dgd))
+
 sys.stdout=sys.__stdout__
 output.close()
