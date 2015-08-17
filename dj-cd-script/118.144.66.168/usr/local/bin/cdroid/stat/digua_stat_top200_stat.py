@@ -1,11 +1,12 @@
 #!/usr/bin/python
-# -*- #coding:utf-8
+# -*- #coding:cp936
+
 
 __author__ = "$Author: guoqiang.sun$"
 __version__ = "$Revision: 1.0 $"
-__date__ = "$Date: 2015å¹´4æœˆ3æ—¥10:56:14 $"
+__date__ = "$Date: 2015Äê4ÔÂ3ÈÕ10:56:14 $"
 ###########################################
-#æ¯å¤©ç»Ÿè®¡åœ°ç“œè®¿é—®æ—¥å¿—ï¼Œæ“ä½œè¡¨DIGUA_STAT_TEMP_LOG
+#Ã¿ÌìÍ³¼ÆµØ¹Ï·ÃÎÊÈÕÖ¾£¬²Ù×÷±íDIGUA_STAT_TEMP_LOG
 ###########################################
 import os
 import sys
@@ -22,20 +23,20 @@ from djutil.MailUtil import MailUtil
 ###########################################
 dbUtil_168 = DBUtil('droid_stat_168')
 device_stat_count={}
-#è·å–æ—¥å¿—äº§ç”Ÿæ—¶é—´
+#»ñÈ¡ÈÕÖ¾²úÉúÊ±¼ä
 handledate = None
 pattern = re.compile("\[(?P<TIME>\S*) \S*\] \S* (?P<URL>\S*) \S* (?P<IP>\S*), \S* (?P<STATUS>\d+) - \S* \((?P<UA>.+)\) \S* {(?P<HEAD>.+)}")
-#####é‚®ä»¶æŠ¥é”™æé†’
+#####ÓÊ¼ş±¨´íÌáĞÑ
 ERROR_MSG = None
 mailServer = "mail.downjoy.com"
-mailFromName = u"å½“ä¹æ•°æ®ä¸­å¿ƒ".encode("gbk")
+mailFromName = u"µ±ÀÖÊı¾İÖĞĞÄ".encode("gbk")
 mailFromAddr = "webmaster@downjoy.com"
 mailLoginUser = "webmaster@downjoy.com"
 mailLoginPass = "htbp3dQ1sGcco!q"
-mailSubject = u"åœ°ç“œç»Ÿè®¡æ—¥å¿—ç»Ÿè®¡é”™è¯¯ä¿¡æ¯".encode("gbk")
-mailTo = ['guoqiang.sun@downjoy.com']
+mailSubject = u"µØ¹ÏÍ³¼ÆÈÕÖ¾Í³¼Æ´íÎóĞÅÏ¢".encode("cp936")
+mailTo = ['chaoguo.long@downjoy.com']
 mailContents = u'Hi: \n'
-
+print "running"
 ########################################################
 def init(fileDate):
     global handledate, createdDate
@@ -54,9 +55,9 @@ def insertData(dbUtil, sql, dataList):
             except:
                 pass
 
-#å°†æ—¥å¿—å…¥åº“
+#½«ÈÕÖ¾Èë¿â
 def statFile(dir,fileName,flag = 'False'):
-    # å¦‚æœè¯¥æ–‡ä»¶ä¸å­˜åœ¨ï¼ŒæŠ›å‡ºå¼‚å¸¸
+    # Èç¹û¸ÃÎÄ¼ş²»´æÔÚ£¬Å×³öÒì³£
     if os.path.exists(dir+fileName):
         f = open(dir+fileName, 'rb')
         while True:
@@ -87,7 +88,7 @@ def statFile(dir,fileName,flag = 'False'):
         os.system('rm -rf %s'%(dir+fileName,))
     else:
         if(str(flag) == 'True'):
-            ERROR_MSG = 'è§£å‹æ–‡ä»¶%sbak/%s.tar.gzå¤±è´¥' %(dir,fileName)
+            ERROR_MSG = 'unzip file %sbak/%s.tar.gz error' %(dir,fileName)
             sendMail()
             return
         #os.system("tar -xzvf  %sbak/%s.tar.gz -C %s" %(dir,fileName,dir))
@@ -101,7 +102,7 @@ def statFile(dir,fileName,flag = 'False'):
 
 def handleFtpFile():
     #statFile('E:\\logs\\','djdiguaserverdcn_ex150303.log')
-    sql="select SRC_DIR, SRC_FILE, LOCAL_DIR, LOCAL_FILE, IP, PORT, IS_DELETE_SRC_FILE, IS_DELETE_LOCAL_FILE, CREATED_DATE from FTP_LOG_CONFIG where id in (73,74,75,118,173,174,175,176,197,208,221) order by ID;"
+    sql="select SRC_DIR, SRC_FILE, LOCAL_DIR, LOCAL_FILE, IP, PORT, IS_DELETE_SRC_FILE, IS_DELETE_LOCAL_FILE, CREATED_DATE from FTP_LOG_CONFIG where id in (73,74,75,118,173,174,175,176,197,208,221,228) order by ID;"
     rows = dbUtil_168.queryList(sql, ())
     for row in rows:
         if not row:
@@ -166,7 +167,7 @@ def statDataTop200():
 
 def sendMail():
     global mailContents
-    mailContents = (mailContents + u'æ‰§è¡Œæ—¥æœŸï¼š%s\nç»Ÿè®¡æ—¥æœŸï¼š%s\né”™è¯¯ä¿¡æ¯ï¼š%s\nè°¢è°¢ï¼' % (datetime.datetime.today(), handledate, ERROR_MSG)).encode('gbk')
+    mailContents = (mailContents + u'excuete date:%s\nstat date:%s\n error msg:%s\n thks' % (datetime.datetime.today(), handledate, ERROR_MSG)).encode("cp936")
     mail = MailUtil(None, mailServer, mailFromName, mailFromAddr, mailTo, mailLoginUser, mailLoginPass, mailSubject)
     mail.sendMailMessage(mailContents)
 ###########################################################
@@ -181,19 +182,19 @@ if __name__ == '__main__':
         startDate = datetime.datetime.strftime(datetime.datetime.today(),'%y%m%d')
         print startDate
     else:
-        fileDate = opts.get('--START_DATE')
+        startDate = opts.get('--START_DATE')
     if opts or opts.get('--INTERVAl_DAY'):
         interval_day = opts.get('--INTERVAl_DAY')
     try:
         begin = datetime.datetime.strptime(startDate, '%y%m%d')
         for i in range(int(interval_day)):
-            fileDate = begin+datetime.timedelta(days=i)
+            fileDate = begin-datetime.timedelta(days=i)
             fileDate = datetime.date.strftime(fileDate, '%y%m%d')
             init(fileDate)
-            #æ¸…ç†æ•°æ®
+            #ÇåÀíÊı¾İ
             clearData()
             print 'clear data over %s' % fileDate
-            #FTPè·å–æ—¥å¿—æ–‡ä»¶ï¼Œå¹¶è¿›è¡Œæ•°æ®æ’å…¥
+            #FTP»ñÈ¡ÈÕÖ¾ÎÄ¼ş£¬²¢½øĞĞÊı¾İ²åÈë
             handleFtpFile()
             print "stat file over %s"% datetime.datetime.now()
             insertIntoData()
@@ -201,7 +202,7 @@ if __name__ == '__main__':
             i=i+1
         statDataTop200()
     except Exception, ex:
-        fp = StringIO.StringIO()    #åˆ›å»ºå†…å­˜æ–‡ä»¶å¯¹è±¡
+        fp = StringIO.StringIO()    #´´½¨ÄÚ´æÎÄ¼ş¶ÔÏó
         traceback.print_exc(file = fp)
         ERROR_MSG = str(fp.getvalue())
         print ERROR_MSG
@@ -211,3 +212,4 @@ if __name__ == '__main__':
         if ERROR_MSG:
            sendMail()
     print "=================end   %s======" % datetime.datetime.now()
+
